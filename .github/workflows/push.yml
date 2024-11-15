@@ -34,9 +34,20 @@ jobs:
           DOCKER_BUILD_RECORD_UPLOAD: false
         with:
           load: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: myimage:latest
       
-      - name: Inspect
+      - name: Create tgz file
         run: |
-          docker image inspect myimage:latest   
+          # docker save myimage:latest -o out.tar
+          docker export myimage:latest | gzip > out.tar.gz
+          sha256sum out.tar.gz | tee out.sha256
+          
+      - name: upload linux artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: out.tar
+          asset_name: out.tar
+          asset_content_type: application/gzip
