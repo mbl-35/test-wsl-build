@@ -49,6 +49,7 @@ jobs:
         # This would actually build your project, using zip for an example artifact
         run: |
           docker pull localhost:5000/myimage:latest
+          docker image list
           contid=$(docker create myimage:latest)
           docker export myimage:latest | gzip > out.tar.gz
           sha256sum out.tar.gz | tee out.sha256
