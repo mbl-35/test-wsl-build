@@ -30,8 +30,6 @@ jobs:
       
       - name: Build
         uses: docker/build-push-action@v6
-        env:
-          DOCKER_BUILD_RECORD_UPLOAD: false
         with:
           load: true
           tags: myimage:latest
