@@ -1,6 +1,6 @@
 name: ci
 
-permissions: read-all
+#permissions: read-all
 
 on:
   push:
