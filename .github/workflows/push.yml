@@ -51,7 +51,7 @@ jobs:
           docker pull localhost:5000/myimage:latest
           docker image list
           contid=$(docker create localhost:5000/myimage:latest)
-          docker export localhost:5000/myimage:latest | gzip > out.tar.gz
+          docker export $contid | gzip > out.tar.gz
           sha256sum out.tar.gz | tee out.sha256
 
       - name: Release
