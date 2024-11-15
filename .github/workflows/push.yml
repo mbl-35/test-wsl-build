@@ -50,8 +50,8 @@ jobs:
         run: |
           docker pull localhost:5000/myimage:latest
           docker image list
-          contid=$(docker create myimage:latest)
-          docker export myimage:latest | gzip > out.tar.gz
+          contid=$(docker create localhost:5000/myimage:latest)
+          docker export localhost:5000/myimage:latest | gzip > out.tar.gz
           sha256sum out.tar.gz | tee out.sha256
 
       - name: Release
